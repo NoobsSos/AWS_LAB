@@ -15,6 +15,9 @@ module "lambda" {
   get_all_authors_arn = module.iam.role_get_all_authors_arn
   get_all_courses_arn = module.iam.role_get_all_courses_arn
   get_course_arn = module.iam.role_get_course_arn
+  save_course_arn = module.iam.role_save_course_arn
+  update_course_arn = module.iam.role_update_course_arn
+  delete_course_arn = module.iam.role_delete_course_arn
 }
 
 module "iam" {
