@@ -13,6 +13,8 @@ module "lambda" {
   name    = "lambda"
 
   get_all_authors_arn = module.iam.role_get_all_authors_arn
+  get_all_courses_arn = module.iam.role_get_all_courses_arn
+  get_course_arn = module.iam.role_get_course_arn
 }
 
 module "iam" {
