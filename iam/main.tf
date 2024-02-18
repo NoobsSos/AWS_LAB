@@ -22,17 +22,12 @@ resource "aws_iam_role" "get_all_authors_lambda_role" {
 resource "aws_iam_policy" "get_all_authors_lambda_policy" {
     name = "get-all-authors-lambda-policy"
 
-    policy      = jsonencode({
+     policy      = jsonencode({
         Version = "2012-10-17",
         Statement = [
         {
             Action = [
             "dynamodb:Scan",
-            "dynamodb:Query",
-            "dynamodb:GetItem",
-            "dynamodb:PutItem",
-            "dynamodb:UpdateItem",
-            "dynamodb:DeleteItem"
             ],
             Effect   = "Allow",
             Resource = var.dynamodb_authors_arn
@@ -66,25 +61,15 @@ resource "aws_iam_policy" "get_all_courses_lambda_policy" {
     name = "get-all-courses-lambda-policy"
 
     policy      = jsonencode({
-            Version = "2012-10-17",
-            Statement = [
-            {
+        Version = "2012-10-17",
+        Statement = [
+        {
             Action = [
-            "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
-            ],
-            Effect   = "Allow",
-            Resource = "arn:aws:logs:*:*:*"
-            },
-            {
-            Action = [
-                "dynamodb:GetItem",
-                "dynamodb:Scan",
+            "dynamodb:Scan",
             ],
             Effect   = "Allow",
             Resource = var.dynamodb_courses_arn
-            }
+        }
         ]
     })
 }
