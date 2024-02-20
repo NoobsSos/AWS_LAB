@@ -1,6 +1,7 @@
 module "labels" {
-  source  = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.25.0"
+  source  = "cloudposse/label/null"
   name    = var.name
+  stage   = var.stage
 }
 
 data "archive_file" "get_all_authors" {
@@ -11,7 +12,7 @@ data "archive_file" "get_all_authors" {
 
 resource "aws_lambda_function" "get_all_authors" {
   filename      = data.archive_file.get_all_authors.output_path
-  function_name = "get-all-authors"
+  function_name = "get-all-authors-${module.labels.stage}-${module.labels.name}"
   role          = var.get_all_authors_arn
   handler       = "get-all-authors.handler"
 
@@ -28,7 +29,7 @@ data "archive_file" "get_all_courses" {
 
 resource "aws_lambda_function" "get_all_courses" {
   filename      = data.archive_file.get_all_courses.output_path
-  function_name = "get-all-courses"
+  function_name = "get-all-courses-${module.labels.stage}-${module.labels.name}"
   role          = var.get_all_courses_arn
   handler       = "get-all-courses.handler"
 
@@ -45,7 +46,7 @@ data "archive_file" "get_course" {
 
 resource "aws_lambda_function" "get_course" {
   filename      = data.archive_file.get_course.output_path
-  function_name = "get-course"
+  function_name = "get-course-${module.labels.stage}-${module.labels.name}"
   role          = var.get_course_arn
   handler       = "get-course.handler"
 
@@ -62,7 +63,7 @@ data "archive_file" "save_course" {
 
 resource "aws_lambda_function" "save_course" {
   filename      = data.archive_file.save_course.output_path
-  function_name = "save-course"
+  function_name = "save-course-${module.labels.stage}-${module.labels.name}"
   role          = var.save_course_arn
   handler       = "save-course.handler"
 
@@ -79,7 +80,7 @@ data "archive_file" "update_course" {
 
 resource "aws_lambda_function" "update_course" {
   filename      = data.archive_file.update_course.output_path
-  function_name = "update-course"
+  function_name = "update-course-${module.labels.stage}-${module.labels.name}"
   role          = var.update_course_arn
   handler       = "update-course.handler"
 
@@ -96,7 +97,7 @@ data "archive_file" "delete_course" {
 
 resource "aws_lambda_function" "delete_course" {
   filename      = data.archive_file.delete_course.output_path
-  function_name = "delete-course"
+  function_name = "delete-course-${module.labels.stage}-${module.labels.name}"
   role          = var.delete_course_arn
   handler       = "delete-course.handler"
 
