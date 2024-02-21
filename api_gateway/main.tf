@@ -80,6 +80,12 @@ resource "aws_api_gateway_method_response" "get_all_authors" {
   resource_id = aws_api_gateway_resource.authors.id
   http_method = aws_api_gateway_method.get_all_authors.http_method
   status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 // Create an integration response for the API Gateway
@@ -88,6 +94,12 @@ resource "aws_api_gateway_integration_response" "get_all_authors" {
   resource_id = aws_api_gateway_resource.authors.id
   http_method = aws_api_gateway_method.get_all_authors.http_method
   status_code = aws_api_gateway_method_response.get_all_authors.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS'"
+  }
 }
 
 // Create a resource for the API Gateway
@@ -137,6 +149,12 @@ resource "aws_api_gateway_method_response" "get_all_courses" {
   status_code = "200"
 
   response_models = { "application/json" = "Empty" }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 // Create an integration response for the API Gateway
@@ -145,6 +163,12 @@ resource "aws_api_gateway_integration_response" "get_all_courses" {
   resource_id = aws_api_gateway_resource.courses.id
   http_method = aws_api_gateway_method.get_all_courses.http_method
   status_code = aws_api_gateway_method_response.get_all_courses.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS'"
+  }
 }
 
 /* SAVE COURSE */
@@ -220,6 +244,12 @@ resource "aws_api_gateway_method_response" "save_course" {
   status_code = "200"
 
   response_models = { "application/json" = "Empty" }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 // Create an integration response for the API Gateway
@@ -230,6 +260,12 @@ resource "aws_api_gateway_integration_response" "save_course" {
   resource_id = aws_api_gateway_resource.courses.id
   http_method = aws_api_gateway_method.save_course.http_method
   status_code = aws_api_gateway_method_response.save_course.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, POST'"
+  }
 }
 
 /* UPDATE COURSE */
@@ -302,6 +338,12 @@ resource "aws_api_gateway_method_response" "update_course" {
   status_code = "200"
 
   response_models = { "application/json" = "Empty" }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 resource "aws_api_gateway_integration_response" "update_course" {
@@ -311,6 +353,12 @@ resource "aws_api_gateway_integration_response" "update_course" {
   resource_id = aws_api_gateway_resource.courses.id
   http_method = aws_api_gateway_method.update_course.http_method
   status_code = aws_api_gateway_method_response.update_course.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, PUT'"
+  }
 }
 
 /* GET COURSE */
@@ -362,6 +410,12 @@ resource "aws_api_gateway_method_response" "get_course" {
   status_code = "200"
 
   response_models = { "application/json" = "Empty" }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 // Create an integration response for the API Gateway
@@ -370,6 +424,12 @@ resource "aws_api_gateway_integration_response" "get_course" {
   resource_id = aws_api_gateway_resource.course.id
   http_method = aws_api_gateway_method.get_course.http_method
   status_code = aws_api_gateway_method_response.get_course.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS'"
+  }
 }
 
 /* DELETE COURSE */
@@ -415,6 +475,12 @@ resource "aws_api_gateway_method_response" "delete_course" {
   status_code = "200"
 
   response_models = { "application/json" = "Empty" }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+  }
 }
 
 // Create an integration response for the API Gateway
@@ -423,4 +489,159 @@ resource "aws_api_gateway_integration_response" "delete_course" {
   resource_id = aws_api_gateway_resource.course.id
   http_method = aws_api_gateway_method.delete_course.http_method
   status_code = aws_api_gateway_method_response.delete_course.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, DELETE'"
+  }
+}
+
+
+/*
+   CORS 
+*/
+
+// CORS AUTHORS
+
+resource "aws_api_gateway_method" "options_authors" {
+  rest_api_id   = aws_api_gateway_rest_api.test_api.id
+  resource_id   = aws_api_gateway_resource.authors.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "options_authors" {
+  rest_api_id             = aws_api_gateway_rest_api.test_api.id
+  resource_id             = aws_api_gateway_resource.authors.id
+  http_method             = aws_api_gateway_method.options_authors.http_method
+  integration_http_method = "OPTIONS"
+  type                    = "MOCK"
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  } 
+}
+
+resource "aws_api_gateway_method_response" "options_authors" {
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.authors.id
+  http_method = aws_api_gateway_method.options_authors.http_method
+  status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "options_authors" {
+  depends_on = [ aws_api_gateway_integration.options_authors ]
+
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.authors.id
+  http_method = aws_api_gateway_method.options_authors.http_method
+  status_code = aws_api_gateway_method_response.options_authors.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+}
+
+// CORS COURSES
+
+resource "aws_api_gateway_method" "options_courses" {
+  rest_api_id   = aws_api_gateway_rest_api.test_api.id
+  resource_id   = aws_api_gateway_resource.courses.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "options_courses" {
+  rest_api_id             = aws_api_gateway_rest_api.test_api.id
+  resource_id             = aws_api_gateway_resource.courses.id
+  http_method             = aws_api_gateway_method.options_courses.http_method
+  integration_http_method = "OPTIONS"
+  type                    = "MOCK"
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  } 
+}
+
+resource "aws_api_gateway_method_response" "options_courses" {
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.courses.id
+  http_method = aws_api_gateway_method.options_courses.http_method
+  status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "options_courses" {
+  depends_on = [ aws_api_gateway_integration.options_courses ]
+
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.courses.id
+  http_method = aws_api_gateway_method.options_courses.http_method
+  status_code = aws_api_gateway_method_response.options_courses.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, POST, PUT'",
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+}
+
+// CORS COURSE
+
+resource "aws_api_gateway_method" "options_course" {
+  rest_api_id   = aws_api_gateway_rest_api.test_api.id
+  resource_id   = aws_api_gateway_resource.course.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "options_course" {
+  rest_api_id             = aws_api_gateway_rest_api.test_api.id
+  resource_id             = aws_api_gateway_resource.course.id
+  http_method             = aws_api_gateway_method.options_course.http_method
+  integration_http_method = "OPTIONS"
+  type                    = "MOCK"
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  } 
+}
+
+resource "aws_api_gateway_method_response" "options_course" {
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.course.id
+  http_method = aws_api_gateway_method.options_course.http_method
+  status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "options_course" {
+  depends_on = [ aws_api_gateway_integration.options_course ]
+
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+  resource_id = aws_api_gateway_resource.course.id
+  http_method = aws_api_gateway_method.options_course.http_method
+  status_code = aws_api_gateway_method_response.options_course.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, DELETE'",
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
 }
