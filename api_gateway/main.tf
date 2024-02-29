@@ -15,27 +15,6 @@ resource "aws_api_gateway_rest_api" "test_api" {
     policy = null
 }
 
-resource "aws_api_gateway_deployment" "this" {
-  rest_api_id = aws_api_gateway_rest_api.test_api.id
-
-  triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.test_api.body))
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-
-// Create a stage for the API Gateway
-resource "aws_api_gateway_stage" "dev" {
-  deployment_id = aws_api_gateway_deployment.this.id
-  rest_api_id   = aws_api_gateway_rest_api.test_api.id
-  stage_name    = module.labels.stage
-}
-
-
 // Create a resource for the API Gateway
 resource "aws_api_gateway_resource" "authors" {
   rest_api_id = aws_api_gateway_rest_api.test_api.id
@@ -644,4 +623,27 @@ resource "aws_api_gateway_integration_response" "options_course" {
     "method.response.header.Access-Control-Allow-Methods" = "'GET, OPTIONS, DELETE'",
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
+}
+
+resource "aws_api_gateway_deployment" "this" {
+  depends_on  = [aws_api_gateway_integration_response.options_authors,
+                 aws_api_gateway_integration_response.options_courses, 
+                 aws_api_gateway_integration_response.options_course]
+
+  rest_api_id = aws_api_gateway_rest_api.test_api.id
+
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.test_api.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+// Create a stage for the API Gateway
+resource "aws_api_gateway_stage" "dev" {
+  deployment_id = aws_api_gateway_deployment.this.id
+  rest_api_id   = aws_api_gateway_rest_api.test_api.id
+  stage_name    = module.labels.stage
 }
