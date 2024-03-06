@@ -105,3 +105,20 @@ resource "aws_lambda_function" "delete_course" {
 
   runtime = "nodejs16.x"
 }
+
+data "archive_file" "sns" {
+  type        = "zip"
+  source_file = "lambda/functions/sns-notify/sns-notify.js"
+  output_path = "lambda/functions/sns-notify/sns-notify.zip"
+}
+
+resource "aws_lambda_function" "sns" {
+  function_name =  "sns-notify-${module.labels.stage}-${module.labels.name}"
+  filename      = data.archive_file.sns.output_path
+  role          = var.sns_topic_arn
+  handler       = "sns-notify.handler"
+
+  source_code_hash = data.archive_file.sns.output_base64sha256
+
+  runtime = "nodejs16.x"
+}
