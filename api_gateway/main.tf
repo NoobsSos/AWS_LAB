@@ -393,7 +393,7 @@ resource "aws_api_gateway_method_response" "update_course" {
     "method.response.header.Access-Control-Allow-Origin" = true
     "method.response.header.Access-Control-Allow-Headers" = true
     "method.response.header.Access-Control-Allow-Methods" = true
-    "method.response.header.Access-Control-Allow-Credentials" = true
+    "method.response.header.Access-Control-Allow-Credentials" = false
   }
 }
 
@@ -407,9 +407,8 @@ resource "aws_api_gateway_integration_response" "update_course" {
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'",
-    "method.response.header.Access-Control-Allow-Headers" = "'X-Requested-With, origin, content-type, accept'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
     "method.response.header.Access-Control-Allow-Methods" = "'GET, PUT, POST, DELETE, HEAD, OPTIONS'",
-    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
   }
 }
 

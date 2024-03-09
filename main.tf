@@ -66,4 +66,6 @@ module "sns" {
   source = "./sns_topic"
   name   = "sns"
   stage  = "dev"
+  
+  lambda_arn = module.lambda.sns_topic_arn
 }

@@ -45,3 +45,7 @@ output "update_course_arn_invoke" {
 output "delete_course_arn_invoke" {
   value = aws_lambda_function.delete_course.invoke_arn
 }
+
+output "sns_topic_arn" {
+  value = aws_lambda_function.sns.arn
+}

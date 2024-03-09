@@ -30,6 +30,12 @@ resource "aws_sns_topic_subscription" "topic_email_subscription" {
   endpoint  = "nazar.mraka@gmail.com"
 }
 
+resource "aws_sns_topic_subscription" "topic_slack_subscription" {
+  topic_arn = aws_sns_topic.this.arn
+  protocol  = "lambda"
+  endpoint  = var.lambda_arn
+}
+
 locals {
   get_all_authors_log_group_name = "/aws/lambda/get-all-authors-dev-lambda"
   get_all_courses_log_group_name = "/aws/lambda/get-all-courses-dev-lambda"
@@ -195,3 +201,6 @@ resource "aws_cloudwatch_metric_alarm" "delete_course-alarm" {
 
   alarm_actions = [aws_sns_topic.this.arn]
 }
+
+
+
