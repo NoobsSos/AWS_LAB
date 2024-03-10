@@ -1,6 +1,7 @@
 module "labels" {
   source = "cloudposse/label/null"
     name = var.name
+    stage = var.stage
 }
 
 resource "aws_sns_topic" "this" {
@@ -202,5 +203,38 @@ resource "aws_cloudwatch_metric_alarm" "delete_course-alarm" {
   alarm_actions = [aws_sns_topic.this.arn]
 }
 
+resource "aws_sns_topic" "billing" {
+  name            = "billing-alarm-notification-usd-${var.stage}"
+  delivery_policy = jsonencode({
+    "http" : {
+      "defaultHealthyRetryPolicy" : {
+        "minDelayTarget" : 20,
+        "maxDelayTarget" : 20,
+        "numRetries" : 3,
+        "numMaxDelayRetries" : 0,
+        "numNoDelayRetries" : 0,
+        "numMinDelayRetries" : 0,
+        "backoffFunction" : "linear"
+      },
+      "disableSubscriptionOverrides" : false,
+      "defaultThrottlePolicy" : {
+        "maxReceivesPerSecond" : 1
+      }
+    }
+  })
+}
 
+resource "aws_sns_topic_subscription" "topic_billing_email_subscription" {
+  topic_arn = aws_sns_topic.billing.arn
+  protocol  = "email"
+  endpoint  = "nazar.mraka@gmail.com"
+}
 
+module "billing_alert" {
+  source = "billtrust/billing-alarm/aws"
+
+  aws_env = var.stage
+  monthly_billing_threshold = 1
+  currency = "USD"
+
+}
